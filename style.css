@@ -58,16 +58,92 @@ body { font-family: var(--font-primary); background-color: var(--bg-color); colo
 .analysis-points > li:first-child { border-top: none; padding-top: 0; margin-top: 0; }
 .conclusion-content em { color: var(--secondary-text-color); font-style: normal; font-weight: 600; }
 .final-conclusion-title { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--accent-grad-end); color: var(--accent-grad-end); }
-.summary-container { overflow-x: auto; }
-.summary-grid { display: grid; grid-template-columns: 2fr repeat(11, 1fr); gap: 5px; min-width: 1200px; }
-.grid-header, .grid-cell, .grid-strategy-header { background-color: var(--surface-color); padding: 0.75rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; text-align: center; }
-.grid-header { font-weight: 700; font-size: 0.9rem; }
-.grid-strategy-header { font-weight: 600; justify-content: flex-start; text-align: left; position: sticky; left: 0; z-index: 2; }
-.grid-cell { font-size: 1.1rem; font-weight: 600; background: linear-gradient(to right, rgba(40, 167, 69, 0.2) var(--correct-percent), rgba(220, 53, 69, 0.2) var(--correct-percent)); }
-.grid-cell .ta { color: #adffc4; }
-.grid-cell .nta { color: #ffadad; }
-.total-row { background-color: var(--bg-color); font-weight: 700; }
-.total-col { border: 1px solid var(--accent-grad-start); }
+/* --- Summary Table Styles (New Responsive Version) --- */
+.summary-container {
+    width: 100%;
+    /* overflow-x: auto; is no longer needed */
+}
+
+.summary-grid {
+    display: grid;
+    /* 12 columns: Strategy name (2fr) + 10 correspondences (1fr each) + 1 total (1fr) */
+    grid-template-columns: 2fr repeat(11, 1fr);
+    gap: 4px; /* Reduced gap for more compactness */
+    width: 100%;
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color);
+}
+
+.grid-header, .grid-cell, .grid-strategy-header {
+    background-color: var(--surface-color);
+    padding: clamp(0.25rem, 1vw, 0.75rem); /* Responsive padding */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: clamp(8px, 1.3vw, 14px); /* Responsive font size */
+    min-height: 40px; /* Minimum height for rows */
+}
+
+.grid-header {
+    font-weight: 700;
+}
+
+.grid-strategy-header {
+    font-weight: 600;
+    justify-content: flex-start;
+    text-align: left;
+    position: sticky;
+    left: 4px; /* Adjust for new padding */
+    z-index: 2;
+    background-color: #1a222c; /* Slightly different background to stand out */
+    word-break: break-word; /* Allow strategy names to wrap if needed */
+}
+
+.grid-cell {
+    font-weight: 600;
+    background: linear-gradient(to right, rgba(40, 167, 69, 0.2) var(--correct-percent), rgba(220, 53, 69, 0.2) var(--correct-percent));
+}
+
+.grid-cell .cell-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(2px, 0.5vw, 5px); /* Responsive gap */
+}
+
+.grid-cell .cell-main-stats {
+    font-size: clamp(10px, 1.8vw, 1.2rem); /* Responsive main numbers */
+}
+
+.grid-cell .ta {
+    color: #adffc4;
+}
+.grid-cell .nta {
+    color: #ffadad;
+}
+
+.grid-cell .cell-total {
+    font-size: clamp(7px, 1.2vw, 0.8rem); /* Responsive total text */
+    font-weight: 400;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1px 5px;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent "Total: X" from breaking line */
+}
+
+.total-row {
+    background-color: var(--bg-color);
+    font-weight: 700;
+}
+
+.total-col {
+    border: 1px solid var(--accent-grad-start);
+}
+
 .main-footer { text-align: center; padding: 2.5rem 1rem; background-color: #010409; border-top: 1px solid var(--border-color); color: var(--secondary-text-color); }
 #back-to-top { position: fixed; bottom: -100px; right: 20px; background: linear-gradient(45deg, var(--accent-grad-start), var(--accent-grad-end)); color: var(--bg-color); border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.5s ease; z-index: 1001; }
 #back-to-top:hover { transform: scale(1.1); }
